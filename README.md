@@ -161,3 +161,144 @@ BEGIN
   SELECT producto, precio FROM productos WHERE categoria = cat;
 END;
 ```
+
+
+## Resumen: construir un compilador básico
+
+**Introducción:**
+
+Un compilador es un programa que traduce código fuente escrito en un lenguaje de programación a un lenguaje que la máquina pueda entender y ejecutar. El proceso de compilación se divide en varias etapas:
+
+**1. Análisis léxico:**
+
+* Divide el código fuente en unidades más pequeñas llamadas **tokens**.
+* Cada token tiene un **tipo** (identificador, palabra clave, operador, etc.) y un **valor** (el nombre del identificador, el valor del literal, etc.).
+* Se utiliza una **tabla de símbolos** para almacenar información sobre los identificadores.
+
+**Ejemplo:**
+
+```python
+def suma(a, b):
+  return a + b
+
+print(suma(1, 2))
+```
+
+El analizador léxico divide el código fuente en los siguientes tokens:
+
+* `def` (palabra clave)
+* `suma` (identificador)
+* `(` (paréntesis)
+* `a` (identificador)
+* `,` (coma)
+* `b` (identificador)
+* `)` (paréntesis)
+* `:` (dos puntos)
+* `return` (palabra clave)
+* `a` (identificador)
+* `+` (operador)
+* `b` (identificador)
+* `print` (identificador)
+* `(` (paréntesis)
+* `suma` (identificador)
+* `(` (paréntesis)
+* `1` (literal)
+* `,` (coma)
+* `2` (literal)
+* `)` (paréntesis)
+* `)` (paréntesis)
+
+**2. Análisis sintáctico:**
+
+* Verifica si la secuencia de tokens forma una estructura válida según la **gramática** del lenguaje.
+* Se construye un **árbol de sintaxis** que representa la estructura del programa.
+* Se pueden detectar errores sintácticos como errores de ortografía, paréntesis no coincidentes, etc.
+
+**Ejemplo:**
+
+El árbol de sintaxis para el código fuente anterior sería:
+
+```
+    Module
+      |
+      FunctionDecl
+        |
+        `- Identifier(suma)
+          |
+          `- Parameters
+            |
+            `- Identifier(a)
+            |
+            `- Identifier(b)
+          |
+          `- Block
+            |
+            `- ReturnStmt
+              |
+              `- BinaryExpr
+                |
+                `- Identifier(a)
+                |
+                `- Operator(+)
+                |
+                `- Identifier(b)
+
+```
+
+**3. Análisis semántico:**
+
+* Verifica si el programa tiene sentido semánticamente.
+* Se analiza el significado de cada token y su contexto.
+* Se pueden detectar errores semánticos como variables no declaradas, tipos incompatibles, etc.
+
+**Ejemplo:**
+
+El análisis semántico verificará que:
+
+* La función `suma` está declarada antes de ser utilizada.
+* Los tipos de los argumentos de la función `suma` son compatibles con los tipos de los parámetros.
+* La expresión `a + b` es válida y tiene un tipo compatible con el tipo de retorno de la función `suma`.
+
+**4. Generación de código intermedio:**
+
+* Traduce el árbol de sintaxis a una representación intermedia independiente de la máquina.
+* El código intermedio es un lenguaje de bajo nivel que puede ser fácilmente traducido a código máquina.
+
+**Ejemplo:**
+
+El código intermedio para el código fuente anterior podría ser:
+
+```
+func suma(a, b):
+  return a + b
+
+print(suma(1, 2))
+
+```
+
+**5. Generación de código objeto:**
+
+* Traduce el código intermedio a código máquina específico para la arquitectura del computador objetivo.
+* El código objeto es un archivo binario que puede ser ejecutado por la máquina.
+
+**Ejemplo:**
+
+El código objeto para el código fuente anterior sería un archivo binario que puede ser ejecutado en un computador con arquitectura x86.
+
+**6. Optimización de código:**
+
+* Se pueden aplicar técnicas de optimización para mejorar el rendimiento del código.
+* Se pueden eliminar instrucciones redundantes, reordenar instrucciones, etc.
+
+**Ejemplo:**
+
+Un optimizador de código podría eliminar la instrucción redundante `a + b` y reemplazarla por la constante `3`.
+
+**Herramientas y recursos:**
+
+* Existen herramientas y recursos disponibles para facilitar el desarrollo de compiladores.
+* Algunos ejemplos son: flex y bison para el análisis léxico y sintáctico, LLVM para la generación de código intermedio, GCC y Clang para la generación de código objeto.
+
+**Recursos adicionales:**
+
+* [[https://craftinginterpreters.com/](https://craftinginterpreters.com/)
